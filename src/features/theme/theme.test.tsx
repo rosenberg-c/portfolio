@@ -214,4 +214,52 @@ describe("ThemeProvider", () => {
     expect(select(mount()).value).toBe("system");
     expectTheme("light");
   });
+
+  it.each(["modern", "legacy"])(
+    "keeps the resolved theme when %s listener registration throws",
+    (kind) => {
+      const fail = (): never => {
+        throw new Error("denied");
+      };
+      const remove = vi.fn();
+      storage("system");
+      vi.stubGlobal("matchMedia", () =>
+        kind === "modern"
+          ? {
+              matches: true,
+              addEventListener: fail,
+              removeEventListener: remove,
+            }
+          : { matches: true, addListener: fail, removeListener: remove },
+      );
+
+      expect(select(mount()).value).toBe("system");
+      expectTheme("dark");
+      act(() => root?.unmount());
+      root = undefined;
+      expect(remove).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each(["modern", "legacy"])(
+    "survives %s listener cleanup throwing on unmount",
+    (kind) => {
+      const fail = (): never => {
+        throw new Error("denied");
+      };
+      const add = vi.fn();
+      storage("system");
+      vi.stubGlobal("matchMedia", () =>
+        kind === "modern"
+          ? { matches: true, addEventListener: add, removeEventListener: fail }
+          : { matches: true, addListener: add, removeListener: fail },
+      );
+
+      mount();
+      expectTheme("dark");
+      expect(add).toHaveBeenCalledOnce();
+      expect(() => act(() => root?.unmount())).not.toThrow();
+      root = undefined;
+    },
+  );
 });

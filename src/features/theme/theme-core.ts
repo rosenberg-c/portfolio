@@ -132,16 +132,36 @@ export function subscribeToSystemTheme(
     typeof query.addEventListener === "function" &&
     typeof query.removeEventListener === "function"
   ) {
-    query.addEventListener("change", handleChange);
-    return () => query.removeEventListener?.("change", handleChange);
+    try {
+      query.addEventListener("change", handleChange);
+    } catch {
+      return undefined;
+    }
+    return () => {
+      try {
+        query.removeEventListener?.("change", handleChange);
+      } catch {
+        // Ignore unavailable media query listeners during cleanup.
+      }
+    };
   }
 
   if (
     typeof query.addListener === "function" &&
     typeof query.removeListener === "function"
   ) {
-    query.addListener(handleChange);
-    return () => query.removeListener?.(handleChange);
+    try {
+      query.addListener(handleChange);
+    } catch {
+      return undefined;
+    }
+    return () => {
+      try {
+        query.removeListener?.(handleChange);
+      } catch {
+        // Ignore unavailable media query listeners during cleanup.
+      }
+    };
   }
 
   return undefined;
