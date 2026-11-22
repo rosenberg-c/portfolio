@@ -1,0 +1,86 @@
+.page {
+  display: grid;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.intro,
+.details {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.visual {
+  min-height: 16rem;
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(
+      circle at 72% 28%,
+      var(--color-accent) 0 12%,
+      transparent 13%
+    ),
+    radial-gradient(
+      circle at 38% 75%,
+      var(--color-accent-hover) 0 19%,
+      transparent 20%
+    ),
+    linear-gradient(135deg, var(--color-surface), var(--color-border));
+}
+
+.bio,
+.details section {
+  align-content: center;
+}
+
+.bio h2,
+.details h2 {
+  margin: 0 0 var(--space-4);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.bio p,
+.school,
+.dates {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skills li {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.school {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+@media (min-width: 48rem) {
+  .intro,
+  .details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .visual {
+    min-height: 22rem;
+  }
+}
