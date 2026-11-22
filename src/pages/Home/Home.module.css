@@ -58,3 +58,75 @@
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
+
+.about {
+  display: grid;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.aboutVisual {
+  min-height: 16rem;
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(
+      circle at 72% 28%,
+      var(--color-accent) 0 12%,
+      transparent 13%
+    ),
+    radial-gradient(
+      circle at 38% 75%,
+      var(--color-accent-hover) 0 19%,
+      transparent 20%
+    ),
+    linear-gradient(135deg, var(--color-surface), var(--color-border));
+}
+
+.aboutContent {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.aboutContent h2,
+.aboutContent h3,
+.aboutContent p {
+  margin: 0;
+}
+
+.aboutContent h2 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.aboutContent > p,
+.aboutDetails p {
+  color: var(--color-muted);
+}
+
+.aboutDetails {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.aboutDetails h3 {
+  font-size: 1rem;
+}
+
+.skills {
+  margin: 0;
+  padding-left: var(--space-6);
+}
+
+@media (min-width: 48rem) {
+  .about {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .aboutVisual {
+    min-height: 22rem;
+  }
+}

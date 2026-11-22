@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router";
 import { afterEach, expect, it } from "vite-plus/test";
 import { App } from "../../App";
 import { ThemeProvider } from "../../features/theme/ThemeContext";
+import { aboutContent } from "../About/About.content";
 import { projectsContent } from "../Projects/Projects.content";
 
 (
@@ -67,4 +68,46 @@ it("renders a shared accessible header and routes hero actions", () => {
   expect(
     nav?.querySelector('a[href="/contact"]')?.getAttribute("aria-current"),
   ).toBe("page");
+});
+
+it("shows the About preview below the hero and links to the About page", () => {
+  const host = document.createElement("div");
+  document.body.appendChild(host);
+  root = createRoot(host);
+  act(() =>
+    root?.render(
+      <ThemeProvider>
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      </ThemeProvider>,
+    ),
+  );
+
+  const main = host.querySelector("main#main-content");
+  const sections = main?.querySelectorAll("section");
+  expect(sections).toHaveLength(2);
+  expect(sections?.[0]?.querySelector("h1")?.textContent).toBe("Hello");
+  const preview = sections?.[1];
+  expect(preview?.getAttribute("aria-labelledby")).toBe("home-about-title");
+  expect(preview?.querySelector("h2")?.textContent).toBe(aboutContent.title);
+  expect(preview?.textContent).toContain(aboutContent.bio);
+  expect(preview?.querySelector("h3")?.textContent).toBe(
+    aboutContent.skillsHeading,
+  );
+  expect(preview?.querySelector("ul li")?.textContent).toBe(
+    aboutContent.skills[0],
+  );
+  expect(preview?.textContent).toContain(aboutContent.educationHeading);
+  expect(preview?.textContent).toContain(aboutContent.school);
+  expect(preview?.textContent).toContain(aboutContent.dates);
+  expect(preview?.querySelector('[aria-hidden="true"]')).not.toBeNull();
+
+  const aboutLink = preview?.querySelector('a[href="/about"]');
+  expect(aboutLink?.textContent).toBe("More about me");
+  act(() => {
+    aboutLink?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+  expect(main?.querySelector("h1")?.textContent).toBe(aboutContent.title);
+  expect(main?.querySelector('a[href="/about"]')).toBeNull();
 });
