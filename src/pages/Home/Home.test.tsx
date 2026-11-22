@@ -63,7 +63,7 @@ it("renders a shared accessible header and routes hero actions", () => {
   act(() => {
     contact?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
-  expect(main?.querySelector("h1")).toBeNull();
+  expect(main?.querySelector("h1")?.textContent).toBe("Get in touch");
   expect(
     nav?.querySelector('a[href="/contact"]')?.getAttribute("aria-current"),
   ).toBe("page");
