@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 import { navigation } from "../../content/navigation";
 import { paths } from "../../../../routes";
+import { ThemeSelector } from "../../../theme/ThemeSelector";
 
 export const SiteHeader = () => {
   return (
@@ -19,6 +20,7 @@ export const SiteHeader = () => {
           </NavLink>
         ))}
       </nav>
+      <ThemeSelector />
     </header>
   );
 };
