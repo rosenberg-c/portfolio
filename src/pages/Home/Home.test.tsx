@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router";
 import { afterEach, expect, it } from "vite-plus/test";
 import { App } from "../../App";
 import { ThemeProvider } from "../../features/theme/ThemeContext";
+import { projectsContent } from "../Projects/Projects.content";
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -17,7 +18,7 @@ afterEach(() => {
   document.body.replaceChildren();
 });
 
-it("renders a shared accessible header and routes hero actions to empty pages", () => {
+it("renders a shared accessible header and routes hero actions", () => {
   const host = document.createElement("div");
   document.body.appendChild(host);
   root = createRoot(host);
@@ -47,7 +48,7 @@ it("renders a shared accessible header and routes hero actions to empty pages", 
   act(() => {
     projects?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
-  expect(main?.querySelector("h1")).toBeNull();
+  expect(main?.querySelector("h1")?.textContent).toBe(projectsContent.title);
   expect(main?.querySelector("a")).toBeNull();
   expect(
     nav?.querySelector('a[href="/projects"]')?.getAttribute("aria-current"),
