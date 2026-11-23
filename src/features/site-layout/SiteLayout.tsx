@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import { SiteFooter } from "./components/SiteFooter/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader/SiteHeader";
 
 export const SiteLayout = () => {
@@ -13,6 +14,7 @@ export const SiteLayout = () => {
           <Outlet />
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 };
