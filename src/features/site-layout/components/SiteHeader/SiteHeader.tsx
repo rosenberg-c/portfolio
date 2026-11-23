@@ -28,6 +28,7 @@ export const SiteHeader = () => {
         >
           <span className={styles.menuIcon} aria-hidden="true" />
         </button>
+        <ThemeSelector />
         <nav
           id="primary-navigation"
           aria-label="Primary navigation"
@@ -48,7 +49,6 @@ export const SiteHeader = () => {
             </NavLink>
           ))}
         </nav>
-        <ThemeSelector />
       </div>
     </header>
   );

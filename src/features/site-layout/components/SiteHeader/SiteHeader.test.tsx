@@ -29,6 +29,23 @@ it("toggles the mobile navigation with synchronized ARIA state", () => {
   expect(nav.getAttribute("data-open")).toBe("false");
 });
 
+it("keeps the opened mobile menu after the theme control in keyboard order", () => {
+  const host = renderApp();
+  const header = host.querySelector("header")!;
+  const button = header.querySelector<HTMLButtonElement>(
+    "button[aria-controls]",
+  )!;
+
+  click(button);
+
+  expect(button.getAttribute("aria-expanded")).toBe("true");
+  expect(
+    Array.from(header.querySelectorAll("a, button, select"), (element) =>
+      element.matches("a") ? element.getAttribute("href") : element.tagName,
+    ),
+  ).toEqual(["/", "BUTTON", "SELECT", "/", "/about", "/projects", "/contact"]);
+});
+
 it("closes on navigation links and the brand", () => {
   const host = renderApp();
   const button = host.querySelector<HTMLButtonElement>(
