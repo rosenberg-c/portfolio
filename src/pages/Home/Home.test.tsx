@@ -136,14 +136,18 @@ it("shows selected Projects after About and routes View all to the full page", (
   const preview = sections?.[2];
   expect(preview?.getAttribute("aria-labelledby")).toBe("home-projects-title");
   expect(preview?.querySelector("h2")?.textContent).toBe(projectsContent.title);
-  const cards = preview?.querySelectorAll("article");
+  const list = preview?.querySelector("ul");
+  expect(list?.classList.contains("app-grid")).toBe(true);
+  const cards = list?.querySelectorAll(":scope > li");
   expect(cards).toHaveLength(2);
   projectsContent.projects.slice(0, 2).forEach((project, index) => {
-    const card = cards?.[index];
+    const card = cards?.[index]?.querySelector("article");
     expect(card?.querySelector("h3")?.textContent).toBe(project.title);
     expect(card?.querySelector("p")?.textContent).toBe(project.description);
+    const stack = card?.querySelector("ul");
+    expect(stack?.getAttribute("aria-label")).toBe(projectsContent.stackLabel);
     expect(
-      Array.from(card?.querySelectorAll("ul li") ?? [], (li) => li.textContent),
+      Array.from(stack?.querySelectorAll("li") ?? [], (li) => li.textContent),
     ).toEqual([...project.stack]);
     expect(card?.querySelector('[aria-hidden="true"]')).not.toBeNull();
     expect(card?.querySelector("a, button")).toBeNull();

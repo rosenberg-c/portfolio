@@ -3,6 +3,15 @@
   margin-inline: auto;
 }
 
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .site-shell {
   min-height: 100vh;
   display: flex;

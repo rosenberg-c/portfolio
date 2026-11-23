@@ -35,13 +35,19 @@ it("renders editable project placeholders without unverified destinations", () =
   const main = host.querySelector("main#main-content");
   expect(main?.querySelector("h1")?.textContent).toBe(projectsContent.title);
   expect(main?.textContent).toContain(projectsContent.introduction);
-  const cards = main?.querySelectorAll("article");
+  const list = main?.querySelector("section > ul");
+  expect(list?.classList.contains("app-grid")).toBe(true);
+  const cards = list?.querySelectorAll(":scope > li");
   expect(cards).toHaveLength(projectsContent.projects.length);
   projectsContent.projects.forEach((project, index) => {
-    const card = cards?.[index];
+    const card = cards?.[index]?.querySelector("article");
     expect(card?.querySelector("h2")?.textContent).toBe(project.title);
     expect(card?.querySelector("p")?.textContent).toBe(project.description);
-    expect(card?.querySelectorAll("ul li")).toHaveLength(project.stack.length);
+    const stack = card?.querySelector("ul");
+    expect(stack?.getAttribute("aria-label")).toBe(projectsContent.stackLabel);
+    expect(
+      Array.from(stack?.querySelectorAll("li") ?? [], (li) => li.textContent),
+    ).toEqual([...project.stack]);
     expect(card?.querySelectorAll('[aria-hidden="true"]')).toHaveLength(1);
     expect(card?.querySelector("a, button")).toBeNull();
   });
