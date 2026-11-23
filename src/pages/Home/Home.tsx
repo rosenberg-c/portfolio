@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 import { aboutContent } from "../About/About.content";
+import { projectsContent } from "../Projects/Projects.content";
+import projectStyles from "../Projects/Projects.module.css";
 import { paths } from "../../routes";
 import { homeContent } from "./Home.content";
 import styles from "./Home.module.css";
@@ -45,6 +47,38 @@ export const Home = () => {
             {homeContent.about.cta}
           </Link>
         </div>
+      </section>
+      <section
+        className={styles.projects}
+        aria-labelledby="home-projects-title"
+      >
+        <div className={styles.projectsHeading}>
+          <h2 id="home-projects-title">{projectsContent.title}</h2>
+          <Link to={paths.projects} className={styles.secondary}>
+            {homeContent.projects.cta}
+          </Link>
+        </div>
+        <ul className={projectStyles.grid}>
+          {projectsContent.projects.slice(0, 2).map((project) => (
+            <li key={project.id} className={projectStyles.card}>
+              <article>
+                <div className={projectStyles.visual} aria-hidden="true" />
+                <div className={projectStyles.cardBody}>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <ul
+                    className={projectStyles.stack}
+                    aria-label={projectsContent.stackLabel}
+                  >
+                    {project.stack.map((technology) => (
+                      <li key={technology}>{technology}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );

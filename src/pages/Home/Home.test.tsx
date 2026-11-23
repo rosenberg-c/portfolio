@@ -6,6 +6,7 @@ import { App } from "../../App";
 import { ThemeProvider } from "../../features/theme/ThemeContext";
 import { aboutContent } from "../About/About.content";
 import { projectsContent } from "../Projects/Projects.content";
+import { homeContent } from "./Home.content";
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -50,7 +51,7 @@ it("renders a shared accessible header and routes hero actions", () => {
     projects?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
   expect(main?.querySelector("h1")?.textContent).toBe(projectsContent.title);
-  expect(main?.querySelector("a")).toBeNull();
+  expect(main?.querySelector("a, button")).toBeNull();
   expect(
     nav?.querySelector('a[href="/projects"]')?.getAttribute("aria-current"),
   ).toBe("page");
@@ -86,7 +87,7 @@ it("shows the About preview below the hero and links to the About page", () => {
 
   const main = host.querySelector("main#main-content");
   const sections = main?.querySelectorAll("section");
-  expect(sections).toHaveLength(2);
+  expect(sections).toHaveLength(3);
   expect(sections?.[0]?.querySelector("h1")?.textContent).toBe("Hello");
   const preview = sections?.[1];
   expect(preview?.getAttribute("aria-labelledby")).toBe("home-about-title");
@@ -110,4 +111,50 @@ it("shows the About preview below the hero and links to the About page", () => {
   });
   expect(main?.querySelector("h1")?.textContent).toBe(aboutContent.title);
   expect(main?.querySelector('a[href="/about"]')).toBeNull();
+});
+
+it("shows selected Projects after About and routes View all to the full page", () => {
+  const host = document.createElement("div");
+  document.body.appendChild(host);
+  root = createRoot(host);
+  act(() =>
+    root?.render(
+      <ThemeProvider>
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      </ThemeProvider>,
+    ),
+  );
+
+  const main = host.querySelector("main#main-content");
+  const sections = main?.querySelectorAll("section");
+  expect(sections).toHaveLength(3);
+  expect(sections?.[1]?.getAttribute("aria-labelledby")).toBe(
+    "home-about-title",
+  );
+  const preview = sections?.[2];
+  expect(preview?.getAttribute("aria-labelledby")).toBe("home-projects-title");
+  expect(preview?.querySelector("h2")?.textContent).toBe(projectsContent.title);
+  const cards = preview?.querySelectorAll("article");
+  expect(cards).toHaveLength(2);
+  projectsContent.projects.slice(0, 2).forEach((project, index) => {
+    const card = cards?.[index];
+    expect(card?.querySelector("h3")?.textContent).toBe(project.title);
+    expect(card?.querySelector("p")?.textContent).toBe(project.description);
+    expect(
+      Array.from(card?.querySelectorAll("ul li") ?? [], (li) => li.textContent),
+    ).toEqual([...project.stack]);
+    expect(card?.querySelector('[aria-hidden="true"]')).not.toBeNull();
+    expect(card?.querySelector("a, button")).toBeNull();
+  });
+  const viewAll = preview?.querySelector('a[href="/projects"]');
+  expect(viewAll?.textContent).toBe(homeContent.projects.cta);
+  act(() => {
+    viewAll?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+  expect(main?.querySelector("h1")?.textContent).toBe(projectsContent.title);
+  expect(main?.querySelectorAll("article")).toHaveLength(
+    projectsContent.projects.length,
+  );
 });

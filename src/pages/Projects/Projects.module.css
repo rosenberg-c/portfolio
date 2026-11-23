@@ -83,7 +83,8 @@
   padding: var(--space-6);
 }
 
-.cardBody h2 {
+.cardBody h2,
+.cardBody h3 {
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.3;

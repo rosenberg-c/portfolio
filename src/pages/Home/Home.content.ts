@@ -8,4 +8,7 @@ export const homeContent = {
   about: {
     cta: "More about me",
   },
+  projects: {
+    cta: "View all projects",
+  },
 } as const;
