@@ -1,37 +1,11 @@
 import { act } from "react";
-import { createRoot, type Root } from "react-dom/client";
-import { MemoryRouter } from "react-router";
-import { afterEach, expect, it } from "vite-plus/test";
-import { App } from "../../App";
-import { ThemeProvider } from "../../features/theme/ThemeContext";
+import { expect, it } from "vite-plus/test";
+import { renderApp } from "../../test/setup";
 import { projectsContent } from "../Projects/Projects.content";
 import { contactContent } from "./Contact.content";
 
-(
-  globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
-).IS_REACT_ACT_ENVIRONMENT = true;
-
-let root: Root | undefined;
-
-afterEach(() => {
-  act(() => root?.unmount());
-  root = undefined;
-  document.body.replaceChildren();
-});
-
 it("renders editable contact placeholders and a working projects action", () => {
-  const host = document.createElement("div");
-  document.body.appendChild(host);
-  root = createRoot(host);
-  act(() =>
-    root?.render(
-      <ThemeProvider>
-        <MemoryRouter initialEntries={["/contact"]}>
-          <App />
-        </MemoryRouter>
-      </ThemeProvider>,
-    ),
-  );
+  const host = renderApp("/contact");
 
   const main = host.querySelector("main#main-content");
   expect(main?.querySelector("h1")?.textContent).toBe(contactContent.title);

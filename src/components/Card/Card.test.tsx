@@ -1,37 +1,20 @@
-import { act } from "react";
-import { createRoot, type Root } from "react-dom/client";
-import { afterEach, expect, it } from "vite-plus/test";
+import { expect, it } from "vite-plus/test";
+import { mount } from "../../test/setup";
 import { Card } from "./Card";
 
-(
-  globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
-).IS_REACT_ACT_ENVIRONMENT = true;
-
-let root: Root | undefined;
-
-afterEach(() => {
-  act(() => root?.unmount());
-  root = undefined;
-  document.body.replaceChildren();
-});
-
 it("renders independently with caller-supplied content and heading level", () => {
-  const host = document.createElement("ul");
-  document.body.appendChild(host);
-  root = createRoot(host);
-  act(() =>
-    root?.render(
-      <Card
-        card={{
-          title: "Unrelated example",
-          description: "A standalone card.",
-          stack: ["Sample tool", "Other tool"],
-        }}
-        stackLabel="Example technologies"
-        headingLevel={3}
-        visualVariant="organic"
-      />,
-    ),
+  const host = mount(
+    <Card
+      card={{
+        title: "Unrelated example",
+        description: "A standalone card.",
+        stack: ["Sample tool", "Other tool"],
+      }}
+      stackLabel="Example technologies"
+      headingLevel={3}
+      visualVariant="organic"
+    />,
+    "ul",
   );
 
   const card = host.querySelector(":scope > li > article");

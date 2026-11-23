@@ -1,38 +1,12 @@
 import { act } from "react";
-import { createRoot, type Root } from "react-dom/client";
-import { MemoryRouter } from "react-router";
-import { afterEach, expect, it } from "vite-plus/test";
-import { App } from "../../App";
-import { ThemeProvider } from "../../features/theme/ThemeContext";
+import { expect, it } from "vite-plus/test";
+import { renderApp } from "../../test/setup";
 import { aboutContent } from "../About/About.content";
 import { projectsContent } from "../Projects/Projects.content";
 import { homeContent } from "./Home.content";
 
-(
-  globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
-).IS_REACT_ACT_ENVIRONMENT = true;
-
-let root: Root | undefined;
-
-afterEach(() => {
-  act(() => root?.unmount());
-  root = undefined;
-  document.body.replaceChildren();
-});
-
 it("renders a shared accessible header and routes hero actions", () => {
-  const host = document.createElement("div");
-  document.body.appendChild(host);
-  root = createRoot(host);
-  act(() =>
-    root?.render(
-      <ThemeProvider>
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
-      </ThemeProvider>,
-    ),
-  );
+  const host = renderApp();
 
   const nav = host.querySelector('nav[aria-label="Primary navigation"]');
   const main = host.querySelector("main#main-content");
@@ -72,18 +46,7 @@ it("renders a shared accessible header and routes hero actions", () => {
 });
 
 it("shows the About preview below the hero and links to the About page", () => {
-  const host = document.createElement("div");
-  document.body.appendChild(host);
-  root = createRoot(host);
-  act(() =>
-    root?.render(
-      <ThemeProvider>
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
-      </ThemeProvider>,
-    ),
-  );
+  const host = renderApp();
 
   const main = host.querySelector("main#main-content");
   const sections = main?.querySelectorAll("section");
@@ -114,18 +77,7 @@ it("shows the About preview below the hero and links to the About page", () => {
 });
 
 it("shows selected Projects after About and routes View all to the full page", () => {
-  const host = document.createElement("div");
-  document.body.appendChild(host);
-  root = createRoot(host);
-  act(() =>
-    root?.render(
-      <ThemeProvider>
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
-      </ThemeProvider>,
-    ),
-  );
+  const host = renderApp();
 
   const main = host.querySelector("main#main-content");
   const sections = main?.querySelectorAll("section");
