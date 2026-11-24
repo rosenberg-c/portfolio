@@ -7,6 +7,7 @@
 #   MERMAID_SCALE png scale factor (default: 4)
 #   MERMAID_CSS   css file passed to mmdc -C (default: .mermaid/mermaid.css)
 #   MERMAID_CONFIG config file passed to mmdc -c (default: .mermaid/mermaid.config.json)
+#   MERMAID_FORMAT output format: both, png, or svg (default: both)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -16,6 +17,12 @@ BG="${MERMAID_BG:-#222222}"
 SCALE="${MERMAID_SCALE:-4}"
 CSS_FILE="${MERMAID_CSS:-.mermaid/mermaid.css}"
 CONFIG_FILE="${MERMAID_CONFIG:-.mermaid/mermaid.config.json}"
+FORMAT="${MERMAID_FORMAT:-both}"
+case "$FORMAT" in
+  both) formats=(png svg) ;;
+  png|svg) formats=("$FORMAT") ;;
+  *) echo "render: invalid MERMAID_FORMAT: $FORMAT (expected both, png, or svg)" >&2; exit 1 ;;
+esac
 
 cd "$ROOT"
 
@@ -26,7 +33,7 @@ count=0
 while IFS= read -r -d '' f; do
   rel="${f#./}"
   count=$((count + 1))
-  for ext in png svg; do
+  for ext in "${formats[@]}"; do
     out="${rel%.mmd}.generated.$ext"
     echo "render: $rel -> $out"
     if ! docker run --rm \
