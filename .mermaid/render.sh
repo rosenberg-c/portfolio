@@ -3,7 +3,6 @@
 # Contract (env vars, all optional):
 #   DOCS_DIR      input directory (default: docs)
 #   MERMAID_IMAGE docker image (default: minlag/mermaid-cli:latest)
-#   MERMAID_THEME theme name (default: dark)
 #   MERMAID_BG    renderer background color (default: #222222)
 #   MERMAID_SCALE png scale factor (default: 4)
 #   MERMAID_CSS   css file passed to mmdc -C (default: .mermaid/mermaid.css)
@@ -13,7 +12,6 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DOCS_DIR="${DOCS_DIR:-docs}"
 IMAGE="${MERMAID_IMAGE:-minlag/mermaid-cli:latest}"
-THEME="${MERMAID_THEME:-dark}"
 BG="${MERMAID_BG:-#222222}"
 SCALE="${MERMAID_SCALE:-4}"
 CSS_FILE="${MERMAID_CSS:-.mermaid/mermaid.css}"
@@ -35,7 +33,7 @@ while IFS= read -r -d '' f; do
       -v "$ROOT:/work" -w /work \
       "$IMAGE" \
         -i "$rel" -o "$out" \
-        -t "$THEME" -b "$BG" \
+        -b "$BG" \
         -C "$CSS_FILE" -c "$CONFIG_FILE" \
         --scale "$SCALE"; then
       echo "render: FAILED $rel -> $out" >&2
