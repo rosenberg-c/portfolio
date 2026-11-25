@@ -52,11 +52,13 @@ export const Card = ({
               ))}
             </div>
           )}
-          <ul className={styles.stack} aria-label={stackLabel}>
-            {card.stack.map((technology) => (
-              <li key={technology}>{technology}</li>
-            ))}
-          </ul>
+          {card.stack.length > 0 && (
+            <ul className={styles.stack} aria-label={stackLabel}>
+              {card.stack.map((technology) => (
+                <li key={technology}>{technology}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </article>
     </li>

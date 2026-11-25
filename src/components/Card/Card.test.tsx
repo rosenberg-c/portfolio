@@ -31,6 +31,19 @@ it("renders independently with caller-supplied content and heading level", () =>
   expect(card?.querySelector("a, button")).toBeNull();
 });
 
+it("omits the labeled stack list when the stack is empty", () => {
+  const host = mount(
+    <Card
+      card={{ title: "No technologies", description: "A sample.", stack: [] }}
+      stackLabel="Example technologies"
+    />,
+    "ul",
+  );
+
+  expect(host.querySelector("article ul")).toBeNull();
+  expect(host.querySelector("article h2")?.textContent).toBe("No technologies");
+});
+
 it("renders a caller-supplied image with descriptive alt text", () => {
   const host = mount(
     <Card
