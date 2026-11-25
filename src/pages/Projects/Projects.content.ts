@@ -62,6 +62,14 @@ export const projectsContent = {
       projectUrl: "https://github.com/rosenberg-c/octop",
     },
     {
+      id: "muxler",
+      title: "Muxler",
+      description:
+        "An iTerm2 and tmux workspace setup for local and remote development sessions.",
+      stack: ["Zsh", "tmux", "iTerm2", "SSH"],
+      projectUrl: "https://github.com/rosenberg-c/muxler",
+    },
+    {
       id: "webcv",
       title: "WebCV",
       description: "A personal CV website with content managed in JSON.",
