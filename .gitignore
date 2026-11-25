@@ -23,5 +23,5 @@ dist-ssr
 *.sw?
 
 # Generated files, for example mermaid output
-*.generated.*
+*.generated*.*
 !.mermaid/mermaid.config.json
