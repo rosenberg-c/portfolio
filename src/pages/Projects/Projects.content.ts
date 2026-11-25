@@ -8,6 +8,7 @@ export type Project = {
   projectUrl?: string;
   screenshotLightUrl?: string;
   screenshotDarkUrl?: string;
+  fitImage?: boolean;
 };
 
 export const projectsContent = {
@@ -52,6 +53,9 @@ export const projectsContent = {
       stack: ["SwiftUI", "macOS"],
       appUrl:
         "https://apps.apple.com/se/app/midiverse/id6740984664?l=en-GB&mt=12",
+      screenshotLightUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/MIDIverse-docs/refs/heads/main/screenshots/01.png",
+      fitImage: true,
     },
     {
       id: "octop",

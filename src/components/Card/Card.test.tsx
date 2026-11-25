@@ -63,6 +63,25 @@ it("renders a caller-supplied image with descriptive alt text", () => {
   expect(image?.getAttribute("src")).toBe("https://example.com/screenshot.png");
   expect(image?.getAttribute("alt")).toBe("Screenshot of Live example");
   expect(visual?.getAttribute("aria-hidden")).toBeNull();
+  expect(visual?.className).not.toContain("fitImage");
+});
+
+it("opts into fitting an image within the visual", () => {
+  const host = mount(
+    <Card
+      card={{
+        title: "Tall screenshot",
+        description: "A sample.",
+        stack: [],
+        screenshotUrl: "/tall.png",
+        fitImage: true,
+      }}
+      stackLabel="Example technologies"
+    />,
+    "ul",
+  );
+
+  expect(host.querySelector("article > div")?.className).toContain("fitImage");
 });
 
 it("shows optional details and caller-supplied links below the description", () => {

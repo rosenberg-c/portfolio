@@ -28,6 +28,11 @@
   height: auto;
 }
 
+.fitImage img {
+  height: 100%;
+  object-fit: contain;
+}
+
 .placeholder::before {
   content: "";
   width: 58%;

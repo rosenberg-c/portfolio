@@ -35,6 +35,7 @@ export const ProjectCard = ({
         type: project.type,
         stack: project.stack,
         screenshotUrl,
+        fitImage: project.fitImage,
         links,
       }}
       stackLabel={projectsContent.stackLabel}

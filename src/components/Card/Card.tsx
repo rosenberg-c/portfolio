@@ -8,6 +8,7 @@ type CardProps = {
     stack: readonly string[];
     links?: readonly { label: string; url: string }[];
     screenshotUrl?: string;
+    fitImage?: boolean;
   };
   stackLabel: string;
   headingLevel?: 2 | 3;
@@ -23,11 +24,16 @@ export const Card = ({
   const Heading = `h${headingLevel}` as const;
   const { screenshotUrl } = card;
 
+  const imageStyle = screenshotUrl
+    ? card.fitImage
+      ? styles.fitImage
+      : ""
+    : styles.placeholder;
   return (
     <li className={styles.card}>
       <article>
         <div
-          className={`${styles.visual} ${styles[visualVariant]} ${screenshotUrl ? "" : styles.placeholder}`}
+          className={`${styles.visual} ${styles[visualVariant]} ${imageStyle}`}
           aria-hidden={screenshotUrl ? undefined : true}
         >
           {screenshotUrl && (

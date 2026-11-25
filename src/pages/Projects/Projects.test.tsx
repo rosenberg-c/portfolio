@@ -93,6 +93,20 @@ it("shows the WebCV dark screenshot in both themes without a light screenshot", 
   expect(webcv?.querySelector("img")?.getAttribute("src")).toBe(screenshot);
 });
 
+it("fits the MIDIVerse screenshot without changing other project images", () => {
+  const host = renderApp("/projects");
+  const cards = host.querySelectorAll("main section > ul > li article");
+  const midiverse = cards[3]?.querySelector("img");
+
+  expect(midiverse?.getAttribute("src")).toBe(
+    projectsContent.projects[3].screenshotLightUrl,
+  );
+  expect(midiverse?.parentElement?.className).toContain("fitImage");
+  expect(
+    cards[0]?.querySelector("img")?.parentElement?.className,
+  ).not.toContain("fitImage");
+});
+
 it("lists WebCV after existing projects with live and source links", () => {
   const host = renderApp("/projects");
   const cards = host.querySelectorAll("main section > ul > li article");
