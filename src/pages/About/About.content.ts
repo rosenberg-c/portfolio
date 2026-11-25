@@ -1,10 +1,15 @@
 export const aboutContent = {
   title: "About",
   bioHeading: "A little about me",
-  bio: "[Bio placeholder - add your own introduction here.]",
+  bio: "I'm Christian, a senior frontend developer focused on scalable React and TypeScript applications, code quality, and user experience. I enjoy building reusable components and systems that are easy to evolve. I'm learning full-stack development and look forward to becoming a full-stack developer.",
   skillsHeading: "Skills",
-  skills: ["[Skill placeholder - add your skill here]"],
+  skills: [
+    "React & TypeScript",
+    "Frontend architecture",
+    "Testing & code quality",
+  ],
   educationHeading: "Education",
-  school: "[School placeholder - add your school here]",
-  dates: "[Dates placeholder - add your dates here]",
+  school:
+    "Lexicon Yrkeshögskola — full-stack development (C#/.NET, React & TypeScript)",
+  dates: "2026–present",
 } as const;

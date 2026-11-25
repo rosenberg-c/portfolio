@@ -2,7 +2,7 @@ import { expect, it } from "vite-plus/test";
 import { renderApp } from "../../test/setup";
 import { aboutContent } from "./About.content";
 
-it("renders About placeholders and sections on the existing route", () => {
+it("renders a concise bio, skills, and education on the existing route", () => {
   const host = renderApp("/about");
 
   const main = host.querySelector("main#main-content");

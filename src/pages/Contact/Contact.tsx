@@ -20,10 +20,14 @@ export const Contact = () => {
       >
         <h2 id="contact-channels-title">{contactContent.channelsHeading}</h2>
         <dl>
-          {contactContent.channels.map(({ label, detail }) => (
+          {contactContent.channels.map(({ label, url }) => (
             <div key={label}>
               <dt>{label}</dt>
-              <dd>{detail}</dd>
+              <dd>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {url}
+                </a>
+              </dd>
             </div>
           ))}
         </dl>

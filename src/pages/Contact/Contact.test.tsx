@@ -4,7 +4,7 @@ import { renderApp } from "../../test/setup";
 import { projectsContent } from "../Projects/Projects.content";
 import { contactContent } from "./Contact.content";
 
-it("renders editable contact placeholders and a working projects action", () => {
+it("renders a LinkedIn link that opens in a new tab and a working projects action", () => {
   const host = renderApp("/contact");
 
   const main = host.querySelector("main#main-content");
@@ -16,14 +16,16 @@ it("renders editable contact placeholders and a working projects action", () => 
   );
   const channels = main?.querySelectorAll("dl > div");
   expect(channels).toHaveLength(contactContent.channels.length);
-  contactContent.channels.forEach(({ label, detail }, index) => {
+  contactContent.channels.forEach(({ label, url }, index) => {
     expect(channels?.[index].querySelector("dt")?.textContent).toBe(label);
-    expect(channels?.[index].querySelector("dd")?.textContent).toBe(detail);
+    const link = channels?.[index].querySelector("dd a");
+    expect(link?.textContent).toBe(url);
+    expect(link?.getAttribute("href")).toBe(url);
+    expect(link?.getAttribute("target")).toBe("_blank");
+    expect(link?.getAttribute("rel")).toBe("noopener noreferrer");
   });
-  expect(main?.querySelectorAll("a")).toHaveLength(1);
-  expect(
-    main?.querySelector("button, form, a[href^='mailto:'], a[href^='http']"),
-  ).toBeNull();
+  expect(main?.querySelectorAll("a")).toHaveLength(2);
+  expect(main?.querySelector("button, form, a[href^='mailto:']")).toBeNull();
   expect(
     host.querySelector('nav a[href="/contact"]')?.getAttribute("aria-current"),
   ).toBe("page");

@@ -1,9 +1,17 @@
 import { act } from "react";
 import { expect, it } from "vite-plus/test";
-import { contactContent } from "../../../../pages/Contact/Contact.content";
+import { homeContent } from "../../../../pages/Home/Home.content";
 import { navigation } from "../../content/navigation";
 import { renderApp } from "../../../../test/setup";
 import { siteFooterContent } from "./SiteFooter.content";
+
+it("keeps the footer's own copy", () => {
+  expect(siteFooterContent).toMatchObject({
+    title: "Thanks for visiting",
+    invitation: "Curious about my work? I'd be glad to connect.",
+    notice: "Find my LinkedIn profile on the contact page.",
+  });
+});
 
 it.each(["/", "/about", "/projects", "/contact", "/missing"])(
   "renders the shared footer on %s",
@@ -13,9 +21,11 @@ it.each(["/", "/about", "/projects", "/contact", "/missing"])(
     const nav = footer?.querySelector('nav[aria-label="Footer navigation"]');
 
     expect(footer).not.toBeNull();
-    expect(footer?.querySelector("h2")?.textContent).toBe(contactContent.title);
-    expect(footer?.textContent).toContain(contactContent.invitation);
-    expect(footer?.textContent).toContain(contactContent.notice);
+    expect(footer?.querySelector("h2")?.textContent).toBe(
+      siteFooterContent.title,
+    );
+    expect(footer?.textContent).toContain(siteFooterContent.invitation);
+    expect(footer?.textContent).toContain(siteFooterContent.notice);
     expect(
       Array.from(nav?.querySelectorAll("a") ?? [], (link) => [
         link.getAttribute("href"),
@@ -38,11 +48,14 @@ it("routes the footer action and navigation to the contact page", () => {
   act(() => {
     action?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
-  expect(main?.querySelector("h1")?.textContent).toBe(contactContent.title);
+  expect(main?.querySelector('a[href="/projects"]')).not.toBeNull();
+  expect(
+    host.querySelector('nav a[href="/contact"]')?.getAttribute("aria-current"),
+  ).toBe("page");
 
   const home = footer?.querySelector('nav a[href="/"]');
   act(() => {
     home?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
-  expect(main?.querySelector("h1")?.textContent).toBe("Hello");
+  expect(main?.querySelector("h1")?.textContent).toBe(homeContent.hero.title);
 });

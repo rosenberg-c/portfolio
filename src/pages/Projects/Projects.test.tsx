@@ -107,7 +107,7 @@ it("renders projects with links only for supplied destinations", () => {
       ]),
     ).toEqual([
       ...("appUrl" in project && project.appUrl
-        ? [["Live app", project.appUrl]]
+        ? [[projectsContent.appLink, project.appUrl]]
         : []),
       ...("projectUrl" in project && project.projectUrl
         ? [["Source code", project.projectUrl]]

@@ -1,7 +1,8 @@
 export const homeContent = {
   hero: {
-    title: "Hello",
-    description: "A simple portfolio site. More content is on the way.",
+    title: "Christian Rosenberg",
+    description:
+      "Senior frontend developer building maintainable React and TypeScript applications.",
     projectsCta: "View projects",
     contactCta: "Get in touch",
   },

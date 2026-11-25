@@ -17,7 +17,7 @@ it("renders a shared accessible header and routes hero actions", () => {
   expect(main?.getAttribute("tabindex")).toBe("-1");
   expect(host.querySelector("header label select")).not.toBeNull();
   expect(nav?.querySelector("select")).toBeNull();
-  expect(main?.querySelector("h1")?.textContent).toBe("Hello");
+  expect(main?.querySelector("h1")?.textContent).toBe(homeContent.hero.title);
 
   const projects = main?.querySelector('a[href="/projects"]');
   expect(projects?.textContent).toBe("View projects");
@@ -50,7 +50,9 @@ it("shows the About preview below the hero and links to the About page", () => {
   const main = host.querySelector("main#main-content");
   const sections = main?.querySelectorAll("section");
   expect(sections).toHaveLength(3);
-  expect(sections?.[0]?.querySelector("h1")?.textContent).toBe("Hello");
+  expect(sections?.[0]?.querySelector("h1")?.textContent).toBe(
+    homeContent.hero.title,
+  );
   const preview = sections?.[1];
   expect(preview?.getAttribute("aria-labelledby")).toBe("home-about-title");
   expect(preview?.querySelector("h2")?.textContent).toBe(aboutContent.title);
@@ -123,7 +125,7 @@ it("shows selected Projects after About and routes View all to the full page", (
       ]),
     ).toEqual([
       ...("appUrl" in project && project.appUrl
-        ? [["Live app", project.appUrl]]
+        ? [[projectsContent.appLink, project.appUrl]]
         : []),
       ...("projectUrl" in project && project.projectUrl
         ? [["Source code", project.projectUrl]]

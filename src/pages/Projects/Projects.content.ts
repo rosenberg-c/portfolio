@@ -12,16 +12,16 @@ export type Project = {
 
 export const projectsContent = {
   title: "Projects",
-  introduction: "A space for selected work. Project details are coming soon.",
+  introduction: "Selected projects and experiments.",
   stackLabel: "Project stack",
-  appLink: "Live app",
+  appLink: "View app",
   projectLink: "Source code",
   projects: [
     {
       id: "project-01",
-      title: "[Project 01 - add a title]",
-      description: "[Add a short description of this project.]",
-      stack: ["[Add technology]", "[Add tool]"],
+      title: "Bite",
+      description: "A web app experiment.",
+      stack: ["React", "TypeScript", "React Router", "Vite+"],
       appUrl: "https://bite-psi-lac.vercel.app/",
       projectUrl: "https://github.com/rosenberg-c/bite",
       screenshotLightUrl:
@@ -30,16 +30,20 @@ export const projectsContent = {
         "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/screenshots/screenshot-dark.png",
     },
     {
-      id: "project-02",
-      title: "[Project 02 - add a title]",
-      description: "[Add a short description of this project.]",
-      stack: ["[Add technology]", "[Add tool]"],
+      id: "spicy",
+      title: "Spicy",
+      description:
+        "AI tooling for the CLI, Neovim, and Hammerspoon built on the OpenCode API.",
+      stack: ["CLI", "Neovim", "Hammerspoon"],
+      projectUrl: "https://github.com/rosenberg-c/spicy",
     },
     {
-      id: "project-03",
-      title: "[Project 03 - add a title]",
-      description: "[Add a short description of this project.]",
-      stack: ["[Add technology]", "[Add tool]"],
+      id: "midiverse",
+      title: "MIDIVerse",
+      description: "A macOS app for manipulating MIDI data and streams.",
+      stack: ["SwiftUI", "macOS"],
+      appUrl:
+        "https://apps.apple.com/se/app/midiverse/id6740984664?l=en-GB&mt=12",
     },
   ] satisfies readonly Project[],
 } as const;
