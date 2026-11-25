@@ -1,8 +1,71 @@
+import { act } from "react";
 import { expect, it } from "vite-plus/test";
-import { renderApp } from "../../test/setup";
+import { ThemeProvider } from "../../features/theme/ThemeContext";
+import { STORAGE_KEY } from "../../features/theme/theme-core";
+import { mount, renderApp } from "../../test/setup";
 import { projectsContent } from "./Projects.content";
+import { ProjectCard } from "./components/ProjectCard";
 
-it("renders editable project placeholders without unverified destinations", () => {
+it("selects the project screenshot for the resolved theme and updates it on change", () => {
+  localStorage.setItem(STORAGE_KEY, "light");
+  const host = renderApp("/projects");
+  const image = host.querySelector("main article img");
+  const project = projectsContent.projects[0];
+  expect(image?.getAttribute("src")).toBe(project.screenshotLightUrl);
+
+  const select = host.querySelector("#theme-preference");
+  act(() => {
+    if (select instanceof HTMLSelectElement) {
+      select.value = "dark";
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+  expect(image?.getAttribute("src")).toBe(project.screenshotDarkUrl);
+});
+
+it("falls back to the light project screenshot when the dark one is missing", () => {
+  localStorage.setItem(STORAGE_KEY, "dark");
+  const host = mount(
+    <ThemeProvider>
+      <ProjectCard
+        project={{
+          id: "light-only",
+          title: "Light only",
+          description: "A sample.",
+          stack: [],
+          screenshotLightUrl: "/light.png",
+        }}
+      />
+    </ThemeProvider>,
+    "ul",
+  );
+  expect(host.querySelector("article img")?.getAttribute("src")).toBe(
+    "/light.png",
+  );
+});
+
+it("falls back to the dark project screenshot when the light one is missing", () => {
+  localStorage.setItem(STORAGE_KEY, "light");
+  const host = mount(
+    <ThemeProvider>
+      <ProjectCard
+        project={{
+          id: "dark-only",
+          title: "Dark only",
+          description: "A sample.",
+          stack: [],
+          screenshotDarkUrl: "/dark.png",
+        }}
+      />
+    </ThemeProvider>,
+    "ul",
+  );
+  expect(host.querySelector("article img")?.getAttribute("src")).toBe(
+    "/dark.png",
+  );
+});
+
+it("renders projects with links only for supplied destinations", () => {
   const host = renderApp("/projects");
 
   const main = host.querySelector("main#main-content");
@@ -21,8 +84,35 @@ it("renders editable project placeholders without unverified destinations", () =
     expect(
       Array.from(stack?.querySelectorAll("li") ?? [], (li) => li.textContent),
     ).toEqual([...project.stack]);
-    expect(card?.querySelectorAll('[aria-hidden="true"]')).toHaveLength(1);
-    expect(card?.querySelector("a, button")).toBeNull();
+    const image = card?.querySelector("article > div img");
+    if ("screenshotLightUrl" in project && project.screenshotLightUrl) {
+      expect(image?.getAttribute("src")).toBe(project.screenshotLightUrl);
+      expect(image?.getAttribute("alt")).toBe(`Screenshot of ${project.title}`);
+      expect(card?.querySelector('[aria-hidden="true"]')).toBeNull();
+    } else {
+      expect(image).toBeNull();
+      expect(card?.querySelectorAll('[aria-hidden="true"]')).toHaveLength(1);
+    }
+    expect(card?.querySelector("h2 a")).toBeNull();
+    expect(
+      Array.from(card?.querySelectorAll("p") ?? [], (p) => p.textContent),
+    ).toEqual([
+      project.description,
+      ...("type" in project && project.type ? [project.type] : []),
+    ]);
+    expect(
+      Array.from(card?.querySelectorAll("a") ?? [], (link) => [
+        link.textContent,
+        link.getAttribute("href"),
+      ]),
+    ).toEqual([
+      ...("appUrl" in project && project.appUrl
+        ? [["Live app", project.appUrl]]
+        : []),
+      ...("projectUrl" in project && project.projectUrl
+        ? [["Source code", project.projectUrl]]
+        : []),
+    ]);
   });
   expect(
     host.querySelector('nav a[href="/projects"]')?.getAttribute("aria-current"),

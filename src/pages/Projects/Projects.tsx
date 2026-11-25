@@ -1,4 +1,4 @@
-import { Card } from "../../components/Card/Card";
+import { ProjectCard } from "./components/ProjectCard";
 import { projectsContent } from "./Projects.content";
 import styles from "./Projects.module.css";
 
@@ -11,10 +11,9 @@ export const Projects = () => {
       </header>
       <ul className="app-grid">
         {projectsContent.projects.map((project, index) => (
-          <Card
+          <ProjectCard
             key={project.id}
-            card={project}
-            stackLabel={projectsContent.stackLabel}
+            project={project}
             visualVariant={
               index === 1 ? "round" : index === 2 ? "organic" : "default"
             }
