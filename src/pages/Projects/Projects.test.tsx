@@ -77,7 +77,7 @@ it("shows the WebCV dark screenshot in both themes without a light screenshot", 
   const webcv = host.querySelector("main section > ul > li:last-child article");
   const screenshot =
     "https://raw.githubusercontent.com/rosenberg-c/webcv/refs/heads/master/docs/screenshots/screenshot-dark.png";
-  expect(projectsContent.projects[3].screenshotDarkUrl).toBe(screenshot);
+  expect(projectsContent.projects[5].screenshotDarkUrl).toBe(screenshot);
   expect(webcv?.querySelector("img")?.getAttribute("src")).toBe(screenshot);
   expect(webcv?.querySelector("img")?.getAttribute("alt")).toBe(
     "Screenshot of WebCV",
@@ -101,7 +101,9 @@ it("lists WebCV after existing projects with live and source links", () => {
   expect(projectsContent.projects.map((project) => project.id)).toEqual([
     "project-01",
     "spicy",
+    "softwrap",
     "midiverse",
+    "octop",
     "webcv",
   ]);
   expect(webcv?.querySelector("h2")?.textContent).toBe("WebCV");

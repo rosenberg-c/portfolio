@@ -38,12 +38,28 @@ export const projectsContent = {
       projectUrl: "https://github.com/rosenberg-c/spicy",
     },
     {
+      id: "softwrap",
+      title: "Softwrap",
+      description:
+        "Centered floating and fixed-width split reading views for Neovim.",
+      stack: ["Lua", "Neovim"],
+      projectUrl: "https://github.com/rosenberg-c/softwrap",
+    },
+    {
       id: "midiverse",
       title: "MIDIVerse",
       description: "A macOS app for manipulating MIDI data and streams.",
       stack: ["SwiftUI", "macOS"],
       appUrl:
         "https://apps.apple.com/se/app/midiverse/id6740984664?l=en-GB&mt=12",
+    },
+    {
+      id: "octop",
+      title: "Octop",
+      description:
+        "A terminal monitor for OpenCode sessions and subagents, showing status and estimated context usage.",
+      stack: ["Python", "CLI", "OpenCode"],
+      projectUrl: "https://github.com/rosenberg-c/octop",
     },
     {
       id: "webcv",
