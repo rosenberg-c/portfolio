@@ -19,7 +19,16 @@
   );
 }
 
-.visual::before {
+.visual img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.placeholder::before {
   content: "";
   width: 58%;
   height: 60%;
@@ -58,6 +67,12 @@
 .cardBody p {
   margin: 0;
   color: var(--color-muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .stack {
