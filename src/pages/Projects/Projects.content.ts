@@ -25,9 +25,9 @@ export const projectsContent = {
       appUrl: "https://bite-psi-lac.vercel.app/",
       projectUrl: "https://github.com/rosenberg-c/bite",
       screenshotLightUrl:
-        "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/screenshots/screenshot-light.png",
+        "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/docs/screenshots/screenshot-light.png",
       screenshotDarkUrl:
-        "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/screenshots/screenshot-dark.png",
+        "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/docs/screenshots/screenshot-dark.png",
     },
     {
       id: "spicy",
@@ -44,6 +44,16 @@ export const projectsContent = {
       stack: ["SwiftUI", "macOS"],
       appUrl:
         "https://apps.apple.com/se/app/midiverse/id6740984664?l=en-GB&mt=12",
+    },
+    {
+      id: "webcv",
+      title: "WebCV",
+      description: "A personal CV website with content managed in JSON.",
+      stack: ["TypeScript", "Vite+", "CSS", "JSON"],
+      appUrl: "https://webcv-umber.vercel.app/",
+      projectUrl: "https://github.com/rosenberg-c/webcv",
+      screenshotDarkUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/webcv/refs/heads/master/docs/screenshots/screenshot-dark.png",
     },
   ] satisfies readonly Project[],
 } as const;

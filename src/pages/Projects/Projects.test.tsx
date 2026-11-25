@@ -3,7 +3,7 @@ import { expect, it } from "vite-plus/test";
 import { ThemeProvider } from "../../features/theme/ThemeContext";
 import { STORAGE_KEY } from "../../features/theme/theme-core";
 import { mount, renderApp } from "../../test/setup";
-import { projectsContent } from "./Projects.content";
+import { projectsContent, type Project } from "./Projects.content";
 import { ProjectCard } from "./components/ProjectCard";
 
 it("selects the project screenshot for the resolved theme and updates it on change", () => {
@@ -11,6 +11,12 @@ it("selects the project screenshot for the resolved theme and updates it on chan
   const host = renderApp("/projects");
   const image = host.querySelector("main article img");
   const project = projectsContent.projects[0];
+  expect(project.screenshotLightUrl).toBe(
+    "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/docs/screenshots/screenshot-light.png",
+  );
+  expect(project.screenshotDarkUrl).toBe(
+    "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/docs/screenshots/screenshot-dark.png",
+  );
   expect(image?.getAttribute("src")).toBe(project.screenshotLightUrl);
 
   const select = host.querySelector("#theme-preference");
@@ -65,6 +71,51 @@ it("falls back to the dark project screenshot when the light one is missing", ()
   );
 });
 
+it("shows the WebCV dark screenshot in both themes without a light screenshot", () => {
+  localStorage.setItem(STORAGE_KEY, "light");
+  const host = renderApp("/projects");
+  const webcv = host.querySelector("main section > ul > li:last-child article");
+  const screenshot =
+    "https://raw.githubusercontent.com/rosenberg-c/webcv/refs/heads/master/docs/screenshots/screenshot-dark.png";
+  expect(projectsContent.projects[3].screenshotDarkUrl).toBe(screenshot);
+  expect(webcv?.querySelector("img")?.getAttribute("src")).toBe(screenshot);
+  expect(webcv?.querySelector("img")?.getAttribute("alt")).toBe(
+    "Screenshot of WebCV",
+  );
+
+  const select = host.querySelector("#theme-preference");
+  act(() => {
+    if (select instanceof HTMLSelectElement) {
+      select.value = "dark";
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+  expect(webcv?.querySelector("img")?.getAttribute("src")).toBe(screenshot);
+});
+
+it("lists WebCV after existing projects with live and source links", () => {
+  const host = renderApp("/projects");
+  const cards = host.querySelectorAll("main section > ul > li article");
+  const webcv = cards[cards.length - 1];
+
+  expect(projectsContent.projects.map((project) => project.id)).toEqual([
+    "project-01",
+    "spicy",
+    "midiverse",
+    "webcv",
+  ]);
+  expect(webcv?.querySelector("h2")?.textContent).toBe("WebCV");
+  expect(
+    Array.from(webcv?.querySelectorAll("a") ?? [], (link) => [
+      link.textContent,
+      link.getAttribute("href"),
+    ]),
+  ).toEqual([
+    ["View app", "https://webcv-umber.vercel.app/"],
+    ["Source code", "https://github.com/rosenberg-c/webcv"],
+  ]);
+});
+
 it("renders projects with links only for supplied destinations", () => {
   const host = renderApp("/projects");
 
@@ -75,7 +126,7 @@ it("renders projects with links only for supplied destinations", () => {
   expect(list?.classList.contains("app-grid")).toBe(true);
   const cards = list?.querySelectorAll(":scope > li");
   expect(cards).toHaveLength(projectsContent.projects.length);
-  projectsContent.projects.forEach((project, index) => {
+  projectsContent.projects.forEach((project: Project, index) => {
     const card = cards?.[index]?.querySelector("article");
     expect(card?.querySelector("h2")?.textContent).toBe(project.title);
     expect(card?.querySelector("p")?.textContent).toBe(project.description);
@@ -85,8 +136,9 @@ it("renders projects with links only for supplied destinations", () => {
       Array.from(stack?.querySelectorAll("li") ?? [], (li) => li.textContent),
     ).toEqual([...project.stack]);
     const image = card?.querySelector("article > div img");
-    if ("screenshotLightUrl" in project && project.screenshotLightUrl) {
-      expect(image?.getAttribute("src")).toBe(project.screenshotLightUrl);
+    const screenshot = project.screenshotLightUrl ?? project.screenshotDarkUrl;
+    if (screenshot) {
+      expect(image?.getAttribute("src")).toBe(screenshot);
       expect(image?.getAttribute("alt")).toBe(`Screenshot of ${project.title}`);
       expect(card?.querySelector('[aria-hidden="true"]')).toBeNull();
     } else {
