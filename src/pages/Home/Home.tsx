@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Card } from "../../components/Card/Card";
+import { ProjectCard } from "../Projects/components/ProjectCard";
 import { aboutContent } from "../About/About.content";
 import { projectsContent } from "../Projects/Projects.content";
 import { paths } from "../../routes";
@@ -60,10 +60,9 @@ export const Home = () => {
         </div>
         <ul className="app-grid">
           {projectsContent.projects.slice(0, 2).map((project, index) => (
-            <Card
+            <ProjectCard
               key={project.id}
-              card={project}
-              stackLabel={projectsContent.stackLabel}
+              project={project}
               headingLevel={3}
               visualVariant={index === 1 ? "round" : "default"}
             />

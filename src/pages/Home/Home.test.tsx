@@ -25,7 +25,6 @@ it("renders a shared accessible header and routes hero actions", () => {
     projects?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
   expect(main?.querySelector("h1")?.textContent).toBe(projectsContent.title);
-  expect(main?.querySelector("a, button")).toBeNull();
   expect(
     nav?.querySelector('a[href="/projects"]')?.getAttribute("aria-current"),
   ).toBe("page");
@@ -101,8 +100,35 @@ it("shows selected Projects after About and routes View all to the full page", (
     expect(
       Array.from(stack?.querySelectorAll("li") ?? [], (li) => li.textContent),
     ).toEqual([...project.stack]);
-    expect(card?.querySelector('[aria-hidden="true"]')).not.toBeNull();
-    expect(card?.querySelector("a, button")).toBeNull();
+    const image = card?.querySelector("article > div img");
+    if ("screenshotLightUrl" in project && project.screenshotLightUrl) {
+      expect(image?.getAttribute("src")).toBe(project.screenshotLightUrl);
+      expect(image?.getAttribute("alt")).toBe(`Screenshot of ${project.title}`);
+      expect(card?.querySelector('[aria-hidden="true"]')).toBeNull();
+    } else {
+      expect(image).toBeNull();
+      expect(card?.querySelector('[aria-hidden="true"]')).not.toBeNull();
+    }
+    expect(card?.querySelector("h3 a")).toBeNull();
+    expect(
+      Array.from(card?.querySelectorAll("p") ?? [], (p) => p.textContent),
+    ).toEqual([
+      project.description,
+      ...("type" in project && project.type ? [project.type] : []),
+    ]);
+    expect(
+      Array.from(card?.querySelectorAll("a") ?? [], (link) => [
+        link.textContent,
+        link.getAttribute("href"),
+      ]),
+    ).toEqual([
+      ...("appUrl" in project && project.appUrl
+        ? [["Live app", project.appUrl]]
+        : []),
+      ...("projectUrl" in project && project.projectUrl
+        ? [["Source code", project.projectUrl]]
+        : []),
+    ]);
   });
   const viewAll = preview?.querySelector('a[href="/projects"]');
   expect(viewAll?.textContent).toBe(homeContent.projects.cta);
