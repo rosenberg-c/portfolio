@@ -58,6 +58,9 @@ export const projectsContent = {
         "Centered floating and fixed-width split reading views for Neovim.",
       stack: ["Lua", "Neovim"],
       projectUrl: "https://github.com/rosenberg-c/softwrap",
+      screenshotLightUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/softwrap/refs/heads/main/docs/screenshots/softwrap.png",
+
     },
     {
       id: "midiverse",
