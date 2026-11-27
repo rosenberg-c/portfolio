@@ -77,7 +77,7 @@ it("shows the WebCV dark screenshot in both themes without a light screenshot", 
   const webcv = host.querySelector("main section > ul > li:last-child article");
   const screenshot =
     "https://raw.githubusercontent.com/rosenberg-c/webcv/refs/heads/master/docs/screenshots/screenshot-dark.png";
-  expect(projectsContent.projects[6].screenshotDarkUrl).toBe(screenshot);
+  expect(projectsContent.projects[7].screenshotDarkUrl).toBe(screenshot);
   expect(webcv?.querySelector("img")?.getAttribute("src")).toBe(screenshot);
   expect(webcv?.querySelector("img")?.getAttribute("alt")).toBe(
     "Screenshot of WebCV",
@@ -96,10 +96,10 @@ it("shows the WebCV dark screenshot in both themes without a light screenshot", 
 it("fits the MIDIVerse screenshot without changing other project images", () => {
   const host = renderApp("/projects");
   const cards = host.querySelectorAll("main section > ul > li article");
-  const midiverse = cards[3]?.querySelector("img");
+  const midiverse = cards[4]?.querySelector("img");
 
   expect(midiverse?.getAttribute("src")).toBe(
-    projectsContent.projects[3].screenshotLightUrl,
+    projectsContent.projects[4].screenshotLightUrl,
   );
   expect(midiverse?.parentElement?.className).toContain("fitImage");
   expect(
@@ -114,6 +114,7 @@ it("lists WebCV after existing projects with live and source links", () => {
 
   expect(projectsContent.projects.map((project) => project.id)).toEqual([
     "project-01",
+    "quiz",
     "spicy",
     "softwrap",
     "midiverse",

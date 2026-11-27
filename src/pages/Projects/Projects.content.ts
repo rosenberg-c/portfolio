@@ -31,6 +31,19 @@ export const projectsContent = {
         "https://raw.githubusercontent.com/rosenberg-c/bite/refs/heads/main/docs/screenshots/screenshot-dark.png",
     },
     {
+      id: "quiz",
+      title: "Quiz",
+      description:
+        "A quiz app built with React, TypeScript, React Router, and Vite+.",
+      stack: ["React", "TypeScript", "React Router", "Vite+"],
+      appUrl: "https://quiz-henna-eight.vercel.app",
+      projectUrl: "https://github.com/rosenberg-c/quiz",
+      screenshotLightUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/quiz/refs/heads/main/docs/screenshots/screenshot-light.png",
+      screenshotDarkUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/quiz/refs/heads/main/docs/screenshots/screenshot-dark.png",
+    },
+    {
       id: "spicy",
       title: "Spicy",
       description:
