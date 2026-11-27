@@ -20,12 +20,16 @@ select:focus-visible {
   z-index: 1;
 }
 
+.theme-selector:hover .theme-selector__icon {
+  color: var(--color-accent-hover);
+}
+
 .theme-selector__control {
   appearance: none;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid var(--color-control-border);
-  background: var(--color-surface);
+  border: 0;
+  background: transparent;
   color: transparent;
   border-radius: var(--radius-sm);
   font: inherit;
