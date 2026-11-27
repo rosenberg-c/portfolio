@@ -1,6 +1,6 @@
 # Export original SVG assets as page-bounded PNGs in the generated asset tree.
 INKSCAPE_RENDER ?= .inkscape/render.sh
-INKSCAPE_IMAGE ?= local-inkscape:1.4.2
+INKSCAPE_IMAGE ?= local_inkscape:1.4.2
 INKSCAPE_PNG_WIDTH ?= 512
 
 .PHONY: inkscape-render

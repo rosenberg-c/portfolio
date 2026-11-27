@@ -1,6 +1,6 @@
 # Optimize original SVG assets into the generated asset tree.
 SVGO_RENDER ?= .svgo/render.sh
-SVGO_IMAGE ?= local-svgo:4.1.0
+SVGO_IMAGE ?= local_svgo:4.1.0
 
 .PHONY: svgo-render
 svgo-render:
