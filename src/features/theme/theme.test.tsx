@@ -189,6 +189,34 @@ describe("ThemeProvider", () => {
     expectTheme("light");
   });
 
+  it("shows the icon for the selected preference", () => {
+    storage("system");
+    matchMedia();
+    const host = mount();
+    const icon = () => host.querySelector(".theme-selector__icon");
+
+    expect(icon()?.classList.contains("lucide-monitor")).toBe(true);
+    expect(icon()?.getAttribute("aria-hidden")).toBe("true");
+    expect(select(host).getAttribute("aria-label")).toBe("Theme");
+    expect(
+      Array.from(select(host).options, (option) => [
+        option.value,
+        option.textContent,
+        option.querySelector("svg"),
+      ]),
+    ).toEqual([
+      ["dark", "Dark", null],
+      ["light", "Light", null],
+      ["system", "System", null],
+    ]);
+    expect(host.querySelectorAll(".theme-selector__icon")).toHaveLength(1);
+
+    choose(host, "light");
+    expect(icon()?.classList.contains("lucide-sun")).toBe(true);
+    choose(host, "dark");
+    expect(icon()?.classList.contains("lucide-moon")).toBe(true);
+  });
+
   it("follows OS changes and unsubscribes on unmount", () => {
     storage("system");
     const media = matchMedia(false);

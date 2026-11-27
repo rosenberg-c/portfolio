@@ -27,10 +27,11 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
+  margin-left: auto;
 }
 
-.inner > :global(.theme-selector) {
-  margin-left: auto;
+.mobileTheme {
+  display: none;
 }
 
 .menuButton {
@@ -98,13 +99,16 @@
     margin-left: auto;
   }
 
-  .inner > :global(.theme-selector) {
-    margin-left: 0;
+  .mobileTheme {
+    display: inline-flex;
+  }
+
+  .desktopTheme {
+    display: none;
   }
 
   .nav {
     display: none;
-    order: 3;
     width: 100%;
     margin-left: 0;
     padding-bottom: var(--space-3);
