@@ -80,6 +80,9 @@ export const projectsContent = {
         "A terminal monitor for OpenCode sessions and subagents, showing status and estimated context usage.",
       stack: ["Python", "CLI", "OpenCode"],
       projectUrl: "https://github.com/rosenberg-c/octop",
+      screenshotLightUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/octop/refs/heads/main/docs/screenshots/octop.png",
+
     },
     {
       id: "muxler",
