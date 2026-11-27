@@ -19,6 +19,7 @@ if [ ! -s "$list" ]; then
 fi
 
 docker build -t "$IMAGE" .svgo
+mkdir -p src/assets
 while IFS= read -r -d '' file; do
   out="src/assets/${file#assets/}"
   mkdir -p "$(dirname "$out")"
@@ -26,6 +27,9 @@ while IFS= read -r -d '' file; do
     echo "svgo-render: refusing symlinked output: $out" >&2; exit 1;
   }
   echo "svgo-render: $file -> $out"
-  docker run --rm -u "$(id -u):$(id -g)" -v "$ROOT:/data" "$IMAGE" \
-    --input "$file" --output "$out"
+  docker run --rm -u "$(id -u):$(id -g)" \
+    -v "$ROOT/assets:/data/assets:ro" \
+    -v "$ROOT/src/assets:/data/src/assets" \
+    -v "$ROOT/.svgo/svgo.config.mjs:/config/svgo.config.mjs:ro" \
+    "$IMAGE" --config /config/svgo.config.mjs --input "$file" --output "$out"
 done < "$list"

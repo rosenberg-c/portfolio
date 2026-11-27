@@ -1,4 +1,4 @@
-import bombArtwork from "../../assets/bomb/atari_st_original_bomb.svg";
+import BombArtwork from "../../assets/bomb/atari_st_original_bomb.svg?react";
 import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
 import { notFoundCopy } from "./NotFound.content";
 import { paths } from "../../routes";
@@ -9,11 +9,10 @@ export const NotFound = () => {
     <section className="not-found" aria-labelledby="not-found-title">
       <div className="not-found__artworks">
         {[...Array(3).keys()].map((index) => (
-          <img
+          <BombArtwork
             key={index}
             className="not-found__artwork"
-            src={bombArtwork}
-            alt=""
+            aria-hidden="true"
           />
         ))}
       </div>

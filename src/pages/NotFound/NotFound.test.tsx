@@ -1,5 +1,4 @@
 import { expect, it } from "vite-plus/test";
-import bombArtwork from "../../assets/bomb/atari_st_original_bomb.svg";
 import { renderApp } from "../../test/setup";
 
 it("shows the supplied artwork and updated message for an unknown address", () => {
@@ -9,10 +8,12 @@ it("shows the supplied artwork and updated message for an unknown address", () =
   expect(page?.querySelector("h1")?.textContent).toBe(
     "We couldn't find that address",
   );
-  const artworks = page?.querySelectorAll(".not-found__artworks img");
+  const artworks = page?.querySelectorAll(".not-found__artworks > svg");
   expect(artworks).toHaveLength(3);
   for (const artwork of artworks ?? []) {
-    expect(artwork.getAttribute("src")).toBe(bombArtwork);
-    expect(artwork.getAttribute("alt")).toBe("");
+    expect(artwork.classList.contains("not-found__artwork")).toBe(true);
+    expect(artwork.getAttribute("aria-hidden")).toBe("true");
+    expect(artwork.getAttribute("viewBox")).toBe("0 0 16 16");
+    expect(artwork.querySelector('g[id="main"] > path')).not.toBeNull();
   }
 });
