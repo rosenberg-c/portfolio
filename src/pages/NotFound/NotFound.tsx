@@ -1,3 +1,4 @@
+import bombArtwork from "../../assets/bomb/atari_st_original_bomb.svg";
 import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
 import { notFoundCopy } from "./NotFound.content";
 import { paths } from "../../routes";
@@ -6,6 +7,16 @@ import "./NotFound.css";
 export const NotFound = () => {
   return (
     <section className="not-found" aria-labelledby="not-found-title">
+      <div className="not-found__artworks">
+        {[...Array(3).keys()].map((index) => (
+          <img
+            key={index}
+            className="not-found__artwork"
+            src={bombArtwork}
+            alt=""
+          />
+        ))}
+      </div>
       <p className="eyebrow">{notFoundCopy.eyebrow}</p>
       <h1 id="not-found-title" className="not-found__title">
         {notFoundCopy.title}
