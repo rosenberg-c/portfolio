@@ -87,6 +87,20 @@ export const projectsContent = {
       projectUrl: "https://github.com/rosenberg-c/muxler",
     },
     {
+      id: "portfolio",
+      title: "Portfolio",
+      description:
+        "A personal portfolio website built with React, TypeScript, React Router, and Vite+.",
+      stack: ["React", "TypeScript", "React Router", "Vite+"],
+      appUrl: "https://portfolio-rho-blue-35.vercel.app/",
+      projectUrl: "https://github.com/rosenberg-c/portfolio",
+      screenshotLightUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/portfolio/refs/heads/main/docs/screenshots/screenshot-light.png",
+      screenshotDarkUrl:
+        "https://raw.githubusercontent.com/rosenberg-c/portfolio/refs/heads/main/docs/screenshots/screenshot-dark.png",
+
+    },
+    {
       id: "webcv",
       title: "WebCV",
       description: "A personal CV website with content managed in JSON.",
