@@ -33,7 +33,7 @@ export const Card = ({
     <li className={styles.card}>
       <article>
         <div
-          className={`${styles.visual} ${styles[visualVariant]} ${imageStyle}`}
+          className={`${styles.visual} ${visualVariant === "default" ? "" : styles[visualVariant]} ${imageStyle}`}
           aria-hidden={screenshotUrl ? undefined : true}
         >
           {screenshotUrl && (

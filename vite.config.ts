@@ -12,6 +12,7 @@ export default defineConfig({
   },
   fmt: {
     printWidth: 80,
+    ignorePatterns: ["**/*.module.d.css.ts"],
   },
   lint: {
     plugins: ["react", "typescript", "oxc"],
