@@ -1,6 +1,7 @@
 include .inkscape/Makefile.mk
 include .mermaid/Makefile.mk
 include .screenshot-puppeteer/Makefile.mk
+include .screenshot-server/Makefile.mk
 include .svgo/Makefile.mk
 include .typst/Makefile.mk
 
@@ -17,6 +18,8 @@ ready:
 .PHONY: ready-docker
 ready-docker:
 	$(MAKE) mermaid-render
-	$(MAKE) screenshot-puppeteer
 	$(MAKE) svgo-render
 	$(MAKE) typst-render
+	$(MAKE) screenshot-server-start
+	$(MAKE) screenshot-puppeteer
+	$(MAKE) screenshot-server-stop

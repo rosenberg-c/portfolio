@@ -1,5 +1,5 @@
 IMAGE ?= local_screenshot-cli
-URL ?= http://host.docker.internal:5173
+URL ?= http://host.docker.internal:5199
 OUTPUT ?= docs/screenshots/screenshot.png
 WIDTH ?= 940
 HEIGHT ?= 900
