@@ -20,10 +20,10 @@
 }
 
 .not-found__artwork {
-  width: 2rem;
-  height: 2rem;
+  width: 4rem;
+  height: 4rem;
   image-rendering: pixelated;
-  filter: drop-shadow(0 2px 2px rgb(230 234 242 / 28%));
+  filter: drop-shadow(0 1px 1px rgb(230 234 242 / 18%));
 }
 
 .not-found__artwork > [id="main"] {
