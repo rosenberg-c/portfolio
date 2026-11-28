@@ -12,9 +12,11 @@ export default defineConfig({
   },
   fmt: {
     printWidth: 80,
-    ignorePatterns: ["**/*.module.d.css.ts"],
+    // Ignore all root entries, then allow src and its descendants.
+    ignorePatterns: ["/*", "!/src/", "**/*.module.d.css.ts"],
   },
   lint: {
+    ignorePatterns: ["/*", "!/src/"],
     plugins: ["react", "typescript", "oxc"],
     rules: {
       "react/rules-of-hooks": "error",
