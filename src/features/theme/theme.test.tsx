@@ -20,6 +20,7 @@ import {
 } from "./theme-core";
 import { ThemeProvider } from "./ThemeContext";
 import { ThemeSelector } from "./ThemeSelector";
+import styles from "./theme.module.css";
 import {
   expectTheme,
   resetThemeDom,
@@ -182,6 +183,12 @@ describe("ThemeProvider", () => {
 
     expect(element.value).toBe("system");
     expect(host.querySelector("label")?.htmlFor).toBe(element.id);
+    expect(
+      host.querySelector("label")?.classList.contains(styles["theme-selector"]),
+    ).toBe(true);
+    expect(element.classList.contains(styles["theme-selector__control"])).toBe(
+      true,
+    );
     expectTheme("dark");
 
     choose(host, "light");
@@ -193,7 +200,7 @@ describe("ThemeProvider", () => {
     storage("system");
     matchMedia();
     const host = mount();
-    const icon = () => host.querySelector(".theme-selector__icon");
+    const icon = () => host.querySelector(`.${styles["theme-selector__icon"]}`);
 
     expect(icon()?.classList.contains("lucide-monitor")).toBe(true);
     expect(icon()?.getAttribute("aria-hidden")).toBe("true");
@@ -209,7 +216,9 @@ describe("ThemeProvider", () => {
       ["light", "Light", null],
       ["system", "System", null],
     ]);
-    expect(host.querySelectorAll(".theme-selector__icon")).toHaveLength(1);
+    expect(
+      host.querySelectorAll(`.${styles["theme-selector__icon"]}`),
+    ).toHaveLength(1);
 
     choose(host, "light");
     expect(icon()?.classList.contains("lucide-sun")).toBe(true);

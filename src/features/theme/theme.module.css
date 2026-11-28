@@ -1,6 +1,6 @@
-a:focus-visible,
-button:focus-visible,
-select:focus-visible {
+:global(a:focus-visible),
+:global(button:focus-visible),
+:global(select:focus-visible) {
   outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }

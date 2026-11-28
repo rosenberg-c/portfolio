@@ -1,5 +1,6 @@
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme, type ThemePreference } from "./useTheme";
+import styles from "./theme.module.css";
 
 const ICONS = { dark: Moon, light: Sun, system: Monitor } as const;
 
@@ -14,12 +15,16 @@ export const ThemeSelector = ({ id = "theme-preference" }: { id?: string }) => {
   const Icon = ICONS[preference];
 
   return (
-    <label className="theme-selector" htmlFor={id}>
-      <Icon className="theme-selector__icon" size={18} aria-hidden="true" />
+    <label className={styles["theme-selector"]} htmlFor={id}>
+      <Icon
+        className={styles["theme-selector__icon"]}
+        size={18}
+        aria-hidden="true"
+      />
       <select
         id={id}
         aria-label="Theme"
-        className="theme-selector__control"
+        className={styles["theme-selector__control"]}
         value={preference}
         onChange={(event) =>
           setPreference(event.target.value as ThemePreference)

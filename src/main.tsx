@@ -5,7 +5,6 @@ import { App } from "./App";
 import { ThemeProvider } from "./features/theme/ThemeContext";
 import "./styles/global.css";
 import "./styles/layout.css";
-import "./styles/theme.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
