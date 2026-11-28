@@ -30,4 +30,4 @@ release. Add a tool name to select part of the graph. For example, run
 
 <!--VITE PLUS END-->
 
-Before declaring work complete, run `make ready-docker`, `make ready` and ensure it passes and no files to commit.
+Before declaring work complete, run `make ready` and ensure it passes and no changes or files to commit.
