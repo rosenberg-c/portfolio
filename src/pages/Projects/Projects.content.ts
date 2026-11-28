@@ -60,7 +60,6 @@ export const projectsContent = {
       projectUrl: "https://github.com/rosenberg-c/softwrap",
       screenshotLightUrl:
         "https://raw.githubusercontent.com/rosenberg-c/softwrap/refs/heads/main/docs/screenshots/softwrap.png",
-
     },
     {
       id: "midiverse",
@@ -82,7 +81,6 @@ export const projectsContent = {
       projectUrl: "https://github.com/rosenberg-c/octop",
       screenshotLightUrl:
         "https://raw.githubusercontent.com/rosenberg-c/octop/refs/heads/main/docs/screenshots/octop.png",
-
     },
     {
       id: "muxler",
@@ -104,7 +102,6 @@ export const projectsContent = {
         "https://raw.githubusercontent.com/rosenberg-c/portfolio/refs/heads/main/docs/screenshots/screenshot-light.png",
       screenshotDarkUrl:
         "https://raw.githubusercontent.com/rosenberg-c/portfolio/refs/heads/main/docs/screenshots/screenshot-dark.png",
-
     },
     {
       id: "webcv",
