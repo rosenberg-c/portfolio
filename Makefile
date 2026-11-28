@@ -13,3 +13,10 @@ ready:
 	$(VP) check
 	$(VP) test
 	$(VP) build
+
+.PHONY: ready-docker
+ready-docker:
+	$(MAKE) mermaid-render
+	$(MAKE) screenshot-puppeteer
+	$(MAKE) svgo-render
+	$(MAKE) typst-render
